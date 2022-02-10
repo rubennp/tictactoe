@@ -8,10 +8,16 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     main {
-        display: flex;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        justify-items: center;
         align-items: center;
         height: 100%;
-        color: white;
+    }
+
+    .guanya {
+        background-color: lightgrey;
+        font-size: 3.5rem !important;
     }
 `;
