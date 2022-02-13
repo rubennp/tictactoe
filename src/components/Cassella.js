@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const simbol = [ "", "❌", "⭕️"];
+const simbol = [ "", "clear", "radio_button_unchecked"];
 const keysGuanyadores = [
     ["00", "10", "20"], // Columna 1
     ["01", "11", "21"], // Columna 2
@@ -24,7 +24,7 @@ export default function Cassella({ r, c, joc, jugada, guanya }) {
             guanya={guanya}
             className={(guanya !== null && keysGuanyadores[guanya].includes(`${r}${c}`)) ? 'guanya' : null}
         >
-            <span>
+            <span className="material-icons">
                 {simbol[joc[r][c]]}
             </span>
         </CassellaStyles>
@@ -42,7 +42,7 @@ const CassellaStyles = styled.div`
       ${({r, c, joc, guanya }) => {
           if (!guanya && joc[r][c] === 0) {
             return `
-                background-color: lightgrey;
+                background-color: oldlace;
                 cursor: pointer;
             `
           }

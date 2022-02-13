@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Tauler = styled.div`
+const Tauler = styled.div`
   display: grid;
   width: 300px;
   height: 300px;
@@ -10,3 +10,5 @@ export const Tauler = styled.div`
   padding: 0;
   border: .5px solid grey;
 `;
+
+export default Tauler;

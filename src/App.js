@@ -1,22 +1,31 @@
 import { useEffect, useState } from 'react';
 import Cassella from './components/Cassella';
-import { Tauler } from './styles/Tauler';
+import Tauler from './styles/Tauler';
+import Button from './styles/Button';
+
+const resetTauler = () => [...Array(3)].map(() => [...Array(3)].fill(0));
+const resetPuntuacio = () => [...Array(8)].fill(0);
+const GUANYA1 = 30, GUANYA2 = 300;
 
 export default function App() {
   const [jugador, setJugador] = useState(0);
-  const [joc, setJoc] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ]);
-  const [puntuacio, setPuntuacio] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
+  const [joc, setJoc] = useState(resetTauler);
+  const [puntuacio, setPuntuacio] = useState(resetPuntuacio);
   const [guanya, setGuanya] = useState(null);
   const [idxGuanya, setIdxGuanya] = useState(null);
 
+  const resetJoc = () => {
+    setJoc(resetTauler);
+    setPuntuacio(resetPuntuacio);
+    setGuanya(null);
+    setIdxGuanya(null);
+    setJugador(0);
+  };
+
   const handleJugada = (r, c) => {
-    setJoc(prev => {
-      if (prev[r][c] === 0) prev[r][c] = jugador;
-      return [...prev];
+    setJoc(prevJoc => {
+      if (prevJoc[r][c] === 0) prevJoc[r][c] = jugador;
+      return [...prevJoc];
     });
     
     let prevPuntuacio = puntuacio;
@@ -36,28 +45,23 @@ export default function App() {
   };
 
   useEffect(function canviJugador() {
-    setJugador(prev => prev === 1 ? 2 : 1);
+    setJugador(prevJugador => prevJugador === 1 ? 2 : 1);
   }, [joc]);
 
   useEffect(function comprovaGuanyador() {
-    if (!joc.flat().includes(0)) {
-      setGuanya(3);
-      return;
-    } else {
-      puntuacio.forEach((el, idx) => {
-        if (el === 30) {
-          setGuanya(1);
-          setIdxGuanya(idx);
-          return;
-        } else if (el === 300) {
-          setGuanya(2);
-          setIdxGuanya(idx);
-          return;
-        }
-      });
-    }
-  }, [puntuacio]);
-
+    puntuacio.forEach((el, idx) => {
+      if (el === GUANYA1) {
+        setGuanya(1);
+        setIdxGuanya(idx);
+      } else if (el === GUANYA2) {
+        setGuanya(2);
+        setIdxGuanya(idx);
+      } else if (!joc.flat().includes(0) && !guanya) {
+        setGuanya(3);
+      }
+    });
+  }, [puntuacio, guanya, joc]);
+  
   return (
     <main>
       <div>
@@ -80,7 +84,10 @@ export default function App() {
       <div>
         {!guanya && <p>Juga {jugador}</p>}
         {(guanya && guanya === 3) && <p>Empat!</p>}
-        {(guanya && guanya < 3) &&  <p>Guanya {guanya}!</p>}
+        {(guanya && guanya < 3) && <p>Guanya {guanya}!</p>}
+        {guanya && <Button onClick={() => {
+          resetJoc();
+        }}>Tornar a jugar!</Button>}
       </div>
     </main>
   );
