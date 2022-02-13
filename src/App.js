@@ -40,17 +40,22 @@ export default function App() {
   }, [joc]);
 
   useEffect(function comprovaGuanyador() {
-    puntuacio.forEach((el, idx) => {
-      if (el === 30) {
-        setGuanya(1);
-        setIdxGuanya(idx);
-        return;
-      } else if (el === 300) {
-        setGuanya(2);
-        setIdxGuanya(idx);
-        return;
-      }
-    });
+    if (!joc.flat().includes(0)) {
+      setGuanya(3);
+      return;
+    } else {
+      puntuacio.forEach((el, idx) => {
+        if (el === 30) {
+          setGuanya(1);
+          setIdxGuanya(idx);
+          return;
+        } else if (el === 300) {
+          setGuanya(2);
+          setIdxGuanya(idx);
+          return;
+        }
+      });
+    }
   }, [puntuacio]);
 
   return (
@@ -73,11 +78,9 @@ export default function App() {
         })}
       </Tauler>
       <div>
-        {!guanya ? 
-          <p>Juga {jugador}</p>
-          :
-          <p>Guanya {guanya}!</p>
-        }
+        {!guanya && <p>Juga {jugador}</p>}
+        {(guanya && guanya === 3) && <p>Empat!</p>}
+        {(guanya && guanya < 3) &&  <p>Guanya {guanya}!</p>}
       </div>
     </main>
   );

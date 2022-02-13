@@ -8,4 +8,5 @@ export const Tauler = styled.div`
   grid-template-rows: 1fr 1fr 1fr;
   margin: 0;
   padding: 0;
+  border: .5px solid grey;
 `;
