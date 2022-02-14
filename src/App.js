@@ -85,9 +85,9 @@ export default function App() {
         {!guanya && <p>Juga {jugador}</p>}
         {(guanya && guanya === 3) && <p>Empat!</p>}
         {(guanya && guanya < 3) && <p>Guanya {guanya}!</p>}
-        {guanya && <Button onClick={() => {
+        <Button onClick={() => {
           resetJoc();
-        }}>Tornar a jugar!</Button>}
+        }}>Torna a { guanya ? "jugar!" : "començar"}</Button>
       </div>
     </main>
   );
