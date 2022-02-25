@@ -12,20 +12,20 @@ const keysGuanyadores = [
     ["02", "11", "20"], // Diagonal 2
 ];
 
-export default function Cassella({ r, c, joc, jugada, guanya }) {
+export default function Cassella({ row, col, tauler, jugada, guanya }) {
     return (
         <CassellaStyles 
-            r={r} 
-            c={c} 
-            joc={joc} 
+            row={row} 
+            col={col} 
+            tauler={tauler} 
             onClick={!guanya ? () => {
-                if (joc[r][c] === 0) jugada(r, c);
+                if (tauler[row][col] === 0) jugada(row, col);
             } : null }
             guanya={guanya}
-            className={(guanya !== null && keysGuanyadores[guanya].includes(`${r}${c}`)) ? 'guanya' : null}
+            className={(guanya !== null && keysGuanyadores[guanya].includes(`${row}${col}`)) ? 'guanya' : null}
         >
             <span className="material-icons">
-                {simbol[joc[r][c]]}
+                {simbol[tauler[row][col]]}
             </span>
         </CassellaStyles>
     );
@@ -39,8 +39,8 @@ const CassellaStyles = styled.div`
     font-size: 2.5rem;
     
     :hover {
-      ${({r, c, joc, guanya }) => {
-          if (!guanya && joc[r][c] === 0) {
+      ${({row, col, tauler, guanya }) => {
+          if (!guanya && tauler[row][col] === 0) {
             return `
                 background-color: oldlace;
                 cursor: pointer;

@@ -1,3 +1,5 @@
+export const BUIT = 0, X = 1, O = 2;
+
 export const calcPuntuacio = (p, r, c, jugador) => {
 	let puntuacio = [...p];
 
@@ -23,66 +25,15 @@ export const hihaGuanyador = puntuacio => {
 	return false;
 };
 
-const jugadorEsMax = {
-	1: false,
-	2: true,
-};
-
-let tirades = new Map();
-const  max_depth = -1;
-
-const deepCopy = arr => {
-	let copy = [];
-	arr.forEach(el => {
-		Array.isArray(el) ? copy.push(deepCopy(el)) : copy.push(el);
-	});
-	return copy;
-};
-
-export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
-	if (prof === 0) tirades.clear();
-
-	const guanyador = hihaGuanyador(puntuacio);
-
-	if (guanyador) return jugadorEsMax[guanyador.jugador] ? 10 - prof : prof - 10;
-	else if (!hihaTirades(tauler)) return 0;
-	
-	let millor = jugadorEsMax[jugador] ? -10 : 10;
-	
-	possiblesTirades(tauler).forEach(tirada => {
-		const taulerFill = deepCopy(tauler);
-		taulerFill[tirada.row][tirada.col] = jugador;
-
-		const puntuacioFill = calcPuntuacio(puntuacio, parseInt(tirada.row), parseInt(tirada.col), jugador);
-		let puntuacioTirada = millorTirada(taulerFill, puntuacioFill, jugador === 1 ? 2 : 1, prof + 1);
-		millor = jugadorEsMax[jugador] ? Math.max(millor, puntuacioTirada) : Math.min(millor, puntuacioTirada);
-
-		if (prof === 0) tirades.set(puntuacioTirada, tirades.has(puntuacioTirada) ? `${tirades.get(puntuacioTirada)},${tirada.row}${tirada.col}` : `${tirada.row}${tirada.col}`);
-	});
-
-	if (prof === 0) {
-		let r;
-
-		if (tirades.get(millor).includes(',')) {
-			let arr = tirades.get(millor).split(',');
-			r = arr[Math.floor(Math.random() * arr.length)];
-		} else r = tirades.get(millor);
-
-		return r;
-	}
-
-	return millor;
-};
-
-const hihaTirades = tauler => tauler.flat().some(el => el === 0);
+export const hihaTirades = tauler => tauler.flat().includes(BUIT);
 
 const possiblesTirades = tauler => {
-	let tirades = [];
+	let tirs = [];
 
 	for (let row in tauler) {
 		for (let col in tauler[row]) {
-			if (tauler[row][col] === 0) {
-				tirades = [...tirades, {
+			if (tauler[row][col] === BUIT) {
+				tirs = [...tirs, {
 					row: row,
 					col: col,
 				}]
@@ -90,5 +41,59 @@ const possiblesTirades = tauler => {
 		}
 	}
 
-	return tirades;
+	return tirs;
+};
+
+const jugadorEsMax = {
+	[X]: false,
+	[O]: true,
+};
+
+let tirs = new Map();
+const profMax = -1;
+
+const copia = arr => {
+	let cp = [];
+	arr.forEach(el => { Array.isArray(el) ? cp.push(copia(el)) : cp.push(el); });
+	return cp;
+};
+
+export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
+	if (prof === 0) tirs.clear();
+
+	const guanyador = hihaGuanyador(puntuacio);
+
+	if (guanyador) return jugadorEsMax[guanyador.jugador] ? 10 - prof : prof - 10;
+	else if (!hihaTirades(tauler) || prof === profMax) return 0;
+	
+	let m = jugadorEsMax[jugador] ? -10 : 10;
+	
+	possiblesTirades(tauler).forEach(tir => {
+		const t = copia(tauler);
+		t[tir.row][tir.col] = jugador;
+
+		const p = calcPuntuacio(puntuacio, parseInt(tir.row), parseInt(tir.col), jugador);
+		let pTir = millorTirada(t, p, jugador === 1 ? 2 : 1, prof + 1);
+		m = jugadorEsMax[jugador] ? Math.max(m, pTir) : Math.min(m, pTir);
+
+		if (prof === 0) {
+			tirs.set(pTir, tirs.has(pTir) ? 
+				`${tirs.get(pTir)},${tir.row}${tir.col}` 
+			: 
+				`${tir.row}${tir.col}`);
+		}
+	});
+
+	if (prof === 0) {
+		let r;
+
+		if (tirs.get(m).includes(',')) {
+			let arr = tirs.get(m).split(',');
+			r = arr[Math.floor(Math.random() * arr.length)];
+		} else r = tirs.get(m);
+
+		return r;
+	}
+
+	return m;
 };

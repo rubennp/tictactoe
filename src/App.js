@@ -2,7 +2,19 @@ import { useEffect, useState } from 'react';
 import Cassella from './components/Cassella';
 import Tauler from './styles/Tauler';
 import Button from './styles/Button';
-import { calcPuntuacio, millorTirada, hihaGuanyador } from './util/minimax';
+import { 
+  calcPuntuacio,
+  millorTirada, 
+  hihaGuanyador, 
+  hihaTirades,
+  BUIT,
+  X,
+  O
+} from './util/minimax';
+
+const HUMA = X, IA = O;
+const EMPAT = 3;
+const ROW = 0, COL = 1;
 
 const resetTauler = () => [
   [0, 0, 0],
@@ -12,62 +24,57 @@ const resetTauler = () => [
 const resetPuntuacio = () => [0, 0, 0, 0, 0, 0, 0, 0];
 const resetJugadors = () => { return { 1: HUMA, 2: IA } };
 
-const X = 1, O = 2;
-const HUMA = 1, IA = 2;
-const EMPAT = 3;
-
 /* 
  * App: main Component
  */
 export default function App() {
   const [jugador, setJugador] = useState(0);
   const [jugadors, setJugadors] = useState(resetJugadors);
-  const [joc, setJoc] = useState(resetTauler);
+  const [tauler, setTauler] = useState(resetTauler);
   const [puntuacio, setPuntuacio] = useState(resetPuntuacio);
   const [guanya, setGuanya] = useState(null);
   const [idxGuanya, setIdxGuanya] = useState(null);
-  const [millor, setMillorTirada] = useState(null);
+  const [millorTiradaIA, setMillorTiradaIA] = useState(null);
 
   const resetJoc = () => {
     setJugador(0);
     setJugadors(resetJugadors);
-    setJoc(resetTauler);
+    setTauler(resetTauler);
     setPuntuacio(resetPuntuacio);
     setGuanya(null);
     setIdxGuanya(null);
-    setMillorTirada(null);
+    setMillorTiradaIA(null);
   };
 
-  const handleJugada = (r, c) => {
-    setJoc(prevJoc => {
-      if (prevJoc[r][c] === 0) prevJoc[r][c] = jugador;
-      return [...prevJoc];
+  const handleJugada = (row, col) => {
+    setTauler(prev => {
+      if (prev[row][col] === BUIT) prev[row][col] = jugador;
+      return [...prev];
     });
 
-    setPuntuacio(prevPuntuacio => calcPuntuacio([...puntuacio], r, c, jugador));
+    setPuntuacio(prev => calcPuntuacio([...puntuacio], row, col, jugador));
   };
 
   useEffect(function canviJugador() {
-    setJugador(prevJugador => prevJugador === X ? O : X);
-  }, [joc]);
+    setJugador(prev => prev === X ? O : X);
+  }, [tauler]);
 
   useEffect(function comprovaGuanyador() {
     const guanyador = hihaGuanyador(puntuacio);
     if (guanyador) {
       setGuanya(guanyador.jugador);
       setIdxGuanya(guanyador.linia);
-    } else if (!joc.flat().includes(0) && !guanya) setGuanya(EMPAT);
-  }, [puntuacio, guanya, joc]);
+    } else if (!hihaTirades(tauler) && !guanya) setGuanya(EMPAT);
+  }, [puntuacio, guanya, tauler]);
   
-  useEffect(() => {
+  useEffect(function millorTiradaIA() {
     if (jugadors[jugador] === IA && !guanya)
-      setMillorTirada(millorTirada([...joc], [...puntuacio], jugador));
+      setMillorTiradaIA(millorTirada([...tauler], [...puntuacio], jugador));
   }, [jugador]);
 
-  useEffect(() => {
-    millor && console.log(`${millor[0]} - ${millor[1]}`);
-    millor && handleJugada(parseInt(millor[0]), parseInt(millor[1]));
-  }, [millor]);
+  useEffect(function tiraIA() {
+    millorTiradaIA && handleJugada(parseInt(millorTiradaIA[ROW]), parseInt(millorTiradaIA[COL]));
+  }, [millorTiradaIA]);
 
   return (
     <main>
@@ -75,14 +82,14 @@ export default function App() {
           <h1>Tres en ratlla</h1>
       </div>
       <Tauler>
-        {joc.map((row, rowidx) => {
+        {tauler.map((row, rowidx) => {
           return row.map((col, colidx) => {
             return <Cassella 
                 key={`${rowidx}${colidx}`} 
                 jugada={handleJugada}
-                r={rowidx}
-                c={colidx}
-                joc={joc}
+                row={rowidx}
+                col={colidx}
+                tauler={tauler}
                 guanya={idxGuanya}
               />
           });
@@ -90,8 +97,8 @@ export default function App() {
       </Tauler>
       <div>
         {!guanya && <p>Juga {jugador}</p>}
-        {(guanya && guanya === 3) && <p>Empat!</p>}
-        {(guanya && guanya < 3) && <p>Guanya {guanya}!</p>}
+        {(guanya && guanya === EMPAT) && <p>Empat!</p>}
+        {(guanya && guanya < EMPAT) && <p>Guanya {guanya}!</p>}
         <Button onClick={() => {
           resetJoc();
         }}>Torna a { guanya ? "jugar!" : "començar"}</Button>
