@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-const Button = styled.div`
+const Btn = styled.div`
     color: maroon;
     background-color: oldlace;
-    padding: .5rem;
+    padding: 1rem;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .25);
+    border-radius: 10px;
 
     &:hover {
         cursor: pointer;
@@ -14,5 +15,5 @@ const Button = styled.div`
     }
 `;
 
-export default Button;
+export default Btn;
 

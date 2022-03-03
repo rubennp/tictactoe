@@ -16,6 +16,27 @@ export const GlobalStyle = createGlobalStyle`
         justify-items: center;
         align-items: center;
         height: 100%;
+
+        section {
+            display: flex;
+            flex-direction: column;
+            justify-items: flex-end;
+            align-items: center;
+
+            p { 
+                margin: 0 0 2.5em; 
+                font-size: 1.5em;
+                color: darkslategrey;
+            }
+        }
+
+        footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
     }
 
     .guanya {
@@ -38,4 +59,6 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         font-size: 2rem;
     }
+
+    span { vertical-align: middle; }
 `;

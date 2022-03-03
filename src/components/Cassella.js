@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const simbol = [ "", "clear", "radio_button_unchecked"];
+import Icon from './Icon';
+import { simbol } from '../utils';
+
 const keysGuanyadores = [
     ["00", "10", "20"], // Columna 1
     ["01", "11", "21"], // Columna 2
@@ -18,15 +20,15 @@ export default function Cassella({ row, col, tauler, jugada, guanya }) {
             row={row} 
             col={col} 
             tauler={tauler} 
-            onClick={!guanya ? () => {
+            onClick={!guanya ? e => {
                 if (tauler[row][col] === 0) jugada(row, col);
             } : null }
             guanya={guanya}
             className={(guanya !== null && keysGuanyadores[guanya].includes(`${row}${col}`)) ? 'guanya' : null}
         >
-            <span className="material-icons">
+            <Icon>
                 {simbol[tauler[row][col]]}
-            </span>
+            </Icon>
         </CassellaStyles>
     );
 };

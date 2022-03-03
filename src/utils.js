@@ -1,4 +1,8 @@
-export const BUIT = 0, X = 1, O = 2;
+export const BUIT = 0, X = 1, O = 2, HUMA = X, IA = O;
+
+// Google Material Icons
+export const opcions = ["", "face", "smart_toy"];
+export const simbol = [ "", "clear", "radio_button_unchecked"];
 
 export const calcPuntuacio = (p, r, c, jugador) => {
 	let puntuacio = [...p];
@@ -19,8 +23,8 @@ export const calcPuntuacio = (p, r, c, jugador) => {
 
 export const hihaGuanyador = puntuacio => {
 	for (let linia in puntuacio) {
-		if (puntuacio[linia] === 30) return { jugador: 1, linia: linia };
-		else if (puntuacio[linia] === 300) return { jugador: 2, linia: linia } ;
+		if (puntuacio[linia] === 30) return { jugador: X, linia: linia };
+		else if (puntuacio[linia] === 300) return { jugador: O, linia: linia } ;
 	}
 	return false;
 };
@@ -44,7 +48,14 @@ const possiblesTirades = tauler => {
 	return tirs;
 };
 
-const jugadorEsMax = {
+export const chJugadorMax = (x = false, o = true) => {
+	jugadorEsMax = {
+		[X]: x,
+		[O]: o,
+	};
+};
+
+let jugadorEsMax = {
 	[X]: false,
 	[O]: true,
 };
@@ -60,7 +71,7 @@ const copia = arr => {
 
 export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
 	if (prof === 0) tirs.clear();
-
+	
 	const guanyador = hihaGuanyador(puntuacio);
 
 	if (guanyador) return jugadorEsMax[guanyador.jugador] ? 10 - prof : prof - 10;
