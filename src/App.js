@@ -101,7 +101,7 @@ export default function App() {
       </header>
       {!hihaConfig ?
       <>
-        <section className="info" >
+        <section>
           <p>Clicla el botó rodó de sota cada símbol<br/>per canviar-ne el jugador</p>
           <Configura jugadors={jugadors} setJugadors={setJugadors} />
         </section>
