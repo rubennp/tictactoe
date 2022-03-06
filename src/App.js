@@ -76,7 +76,7 @@ export default function App() {
   }, [jugador]);
 
   useEffect(function tiraIA() {
-    millorTiradaIA && handleJugada(parseInt(millorTiradaIA.row), parseInt(millorTiradaIA.col));
+    millorTiradaIA && handleJugada(millorTiradaIA.row, millorTiradaIA.col);
   }, [millorTiradaIA]);
 
   useEffect(() => {

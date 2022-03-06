@@ -38,8 +38,8 @@ const possiblesTirades = tauler => {
 		for (let col in tauler[row]) {
 			if (tauler[row][col] === BUIT) {
 				tirs = [...tirs, {
-					row: row,
-					col: col,
+					row: parseInt(row),
+					col: parseInt(col),
 				}]
 			}
 		}
@@ -83,7 +83,7 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
 		const t = copia(tauler);
 		t[tir.row][tir.col] = jugador;
 
-		const p = calcPuntuacio(puntuacio, parseInt(tir.row), parseInt(tir.col), jugador);
+		const p = calcPuntuacio(puntuacio, tir.row, tir.col, jugador);
 		let pTir = millorTirada(t, p, jugador === 1 ? 2 : 1, prof + 1);
 		m = jugadorEsMax[jugador] ? Math.max(m, pTir) : Math.min(m, pTir);
 
