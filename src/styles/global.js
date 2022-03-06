@@ -49,6 +49,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1 {
+        font-size: 1vw;
         font-weight: 700;
         font-size: 5rem;
         color: lightsalmon;
@@ -57,7 +58,7 @@ export const GlobalStyle = createGlobalStyle`
 
     p {
         font-weight: 400;
-        font-size: 2rem;
+        font-size: 2vw;
     }
 
     span { vertical-align: middle; }

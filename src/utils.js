@@ -1,8 +1,8 @@
 export const BUIT = 0, X = 1, O = 2, HUMA = X, IA = O;
 
 // Google Material Icons
-export const opcions = ["", "face", "smart_toy"];
-export const simbol = [ "", "clear", "radio_button_unchecked"];
+export const icoJugadors = ["", "face", "smart_toy"];
+export const icoFitxa = [ "", "clear", "radio_button_unchecked"];
 
 export const calcPuntuacio = (p, r, c, jugador) => {
 	let puntuacio = [...p];
@@ -49,9 +49,9 @@ const possiblesTirades = tauler => {
 };
 
 export const chJugadorMax = (x = false, o = true) => {
-	jugadorEsMax = {
-		[X]: x,
-		[O]: o,
+	jugadorEsMax = { 
+		[X]: x, 
+		[O]: o 
 	};
 };
 
@@ -87,24 +87,13 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
 		let pTir = millorTirada(t, p, jugador === 1 ? 2 : 1, prof + 1);
 		m = jugadorEsMax[jugador] ? Math.max(m, pTir) : Math.min(m, pTir);
 
-		if (prof === 0) {
-			tirs.set(pTir, tirs.has(pTir) ? 
-				`${tirs.get(pTir)},${tir.row}${tir.col}` 
-			: 
-				`${tir.row}${tir.col}`);
-		}
+		if (prof === 0) tirs.set(pTir, tirs.has(pTir) ? [...tirs.get(pTir), tir] : [tir]);
 	});
 
 	if (prof === 0) {
-		let r;
-
-		if (tirs.get(m).includes(',')) {
-			let arr = tirs.get(m).split(',');
-			r = arr[Math.floor(Math.random() * arr.length)];
-		} else r = tirs.get(m);
-
-		return r;
+		let tm = tirs.get(m);
+		return tm.length > 1 ? tm[Math.floor(Math.random() * tm.length)] : tm[0];
 	}
 
 	return m;
-};
+}

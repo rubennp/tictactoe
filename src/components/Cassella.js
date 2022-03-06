@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import Icon from './Icon';
-import { simbol } from '../utils';
+import { icoFitxa } from '../utils';
 
 const keysGuanyadores = [
     ["00", "10", "20"], // Columna 1
@@ -27,7 +27,7 @@ export default function Cassella({ row, col, tauler, jugada, guanya }) {
             className={(guanya !== null && keysGuanyadores[guanya].includes(`${row}${col}`)) ? 'guanya' : null}
         >
             <Icon>
-                {simbol[tauler[row][col]]}
+                {icoFitxa[tauler[row][col]]}
             </Icon>
         </CassellaStyles>
     );

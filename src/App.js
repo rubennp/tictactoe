@@ -1,29 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Cassella from './components/Cassella';
-import Tauler from './components/Tauler';
 import Btn from './components/Btn';
 import Configura from './components/Configura';
 import Icon from './components/Icon';
 
 import { 
-  calcPuntuacio,
-  millorTirada, 
-  hihaGuanyador, 
-  hihaTirades,
-  chJugadorMax,
-  BUIT,
-  X,
-  O,
-  HUMA,
-  IA,
-  simbol
+  calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, chJugadorMax,
+  BUIT, X, O, HUMA, IA, icoJugadors, icoFitxa
 } from './utils';
 
-const COMENÇA_IA = 3;
-const EMPAT = 3;
-const ROW = 0, COL = 1;
+const COMENÇA_IA = 3, EMPAT = 3;
 
 const resetTauler = () => [
   [0, 0, 0],
@@ -57,13 +47,15 @@ export default function App() {
     setHiHaConfig(cfg);
   };
 
+  const iaOrJ = jugador === COMENÇA_IA ? X : jugador;
+
   const handleJugada = (row, col) => {
     setTauler(prev => {
-      if (prev[row][col] === BUIT) prev[row][col] = jugador === COMENÇA_IA ? X : jugador;
+      if (prev[row][col] === BUIT) prev[row][col] = iaOrJ;
       return [...prev];
     });
 
-    setPuntuacio(prev => calcPuntuacio([...puntuacio], row, col, jugador === COMENÇA_IA ? X : jugador));
+    setPuntuacio(prev => calcPuntuacio([...puntuacio], row, col, iaOrJ));
   };
 
   useEffect(function canviJugador() {
@@ -80,11 +72,11 @@ export default function App() {
   
   useEffect(function millorTiradaIA() {
     if ((jugadors[jugador] === IA && !guanya) || jugador === COMENÇA_IA)
-      setMillorTiradaIA(millorTirada([...tauler], [...puntuacio], jugador === COMENÇA_IA ? X : jugador));
+      setMillorTiradaIA(millorTirada([...tauler], [...puntuacio], iaOrJ));
   }, [jugador]);
 
   useEffect(function tiraIA() {
-    millorTiradaIA && handleJugada(parseInt(millorTiradaIA[ROW]), parseInt(millorTiradaIA[COL]));
+    millorTiradaIA && handleJugada(parseInt(millorTiradaIA.row), parseInt(millorTiradaIA.col));
   }, [millorTiradaIA]);
 
   useEffect(() => {
@@ -129,11 +121,11 @@ export default function App() {
           })}
         </Tauler>
         <footer>
-          <div>
-            {!guanya && <p>{jugador === 0 || jugador === COMENÇA_IA ? "Calculant..." : <span>Juga <Icon>{simbol[jugador]}</Icon></span>}</p>}
+          <section>
+            {!guanya && <p>{jugador === 0 || jugador === COMENÇA_IA ? "Calculant..." : <span>Juga <Icon>{icoFitxa[jugador]}</Icon></span>}</p>}
             {(guanya && guanya === EMPAT) && <p>Empat!</p>}
-            {(guanya && guanya < EMPAT) && <p>Guanya <Icon>{simbol[guanya]}</Icon>!</p>}
-          </div>
+            {(guanya && guanya < EMPAT) && <p>Guanya <Icon>{jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}</Icon>!</p>}
+          </section>
           <OpcionsJoc>
             <Btn onClick={() => {
               resetJoc(true);
@@ -149,13 +141,24 @@ export default function App() {
   );
 };
 
+const Tauler = styled.div`
+  display: grid;
+  width: 300px;
+  height: 300px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  margin: 0;
+  padding: 0;
+  border: .5px solid grey;
+`;
+
 const OpcionsJoc = styled.div`
   display: flex;
   flex-direction: row;
 
   div {
     margin: 0 1em;
-    font-size: 1.25em;
+    font-size: 2vw;
   }
 `;
 
