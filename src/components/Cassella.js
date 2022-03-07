@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import Icon from './Icon';
-import { icoFitxa } from '../utils';
+import { BUIT, icoFitxa } from '../utils';
 
 const keysGuanyadores = [
     ["00", "10", "20"], // Columna 1
@@ -21,7 +21,7 @@ export default function Cassella({ row, col, tauler, jugada, guanya }) {
             col={col} 
             tauler={tauler} 
             onClick={!guanya ? e => {
-                if (tauler[row][col] === 0) jugada(row, col);
+                if (tauler[row][col] === BUIT) jugada(row, col);
             } : null }
             guanya={guanya}
             className={(guanya !== null && keysGuanyadores[guanya].includes(`${row}${col}`)) ? 'guanya' : null}
@@ -42,7 +42,7 @@ const CassellaStyles = styled.div`
     
     :hover {
       ${({row, col, tauler, guanya }) => {
-          if (!guanya && tauler[row][col] === 0) {
+          if (!guanya && tauler[row][col] === BUIT) {
             return `
                 background-color: oldlace;
                 cursor: pointer;
