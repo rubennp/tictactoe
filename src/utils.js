@@ -60,9 +60,9 @@ const copia = arr => arr.map(el => Array.isArray(el) ? copia(el) : el);
 
 const MAX = 100, PROF_MAX = -1;
 
-export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
+export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX, beta = MAX) => {
 	if (prof === 0) tirs.clear();
-	
+
 	const guanyador = hihaGuanyador(puntuacio);
 
 	if (guanyador) return jugadorEsMax[guanyador.jugador] ? MAX - prof : prof - MAX;
@@ -74,9 +74,11 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
 		const t = copia(tauler);
 		t[tir.row][tir.col] = jugador;
 		const p = calcPuntuacio(puntuacio, tir.row, tir.col, jugador);
-		const pTir = millorTirada(t, p, jugador === X ? O : X, prof + 1);
+		const pTir = millorTirada(t, p, jugador === X ? O : X, prof + 1, alpha, beta);
 		millor = jugadorEsMax[jugador] ? Math.max(millor, pTir) : Math.min(millor, pTir);
+		jugadorEsMax[jugador] ? alpha = Math.max(alpha, millor) : beta = Math.min(beta, millor);
 		if (prof === 0) tirs.set(pTir, tirs.has(pTir) ? [...tirs.get(pTir), tir] : [tir]);
+		if (alpha >= beta) return;
 	});
 
 	if (prof === 0) {
