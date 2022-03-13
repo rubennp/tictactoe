@@ -4,17 +4,17 @@ export const BUIT = 0, X = 1, O = 2, HUMA = X, IA = O;
 export const icoJugadors = ["", "face", "smart_toy"];
 export const icoFitxa = [ "", "clear", "radio_button_unchecked"];
 
-export const calcPuntuacio = (p, r, c, jugador) => {
+export const calcPuntuacio = (p, row, col, jugador) => {
 	let puntuacio = [...p];
 
 	// puntuacio[0, 1, 2] (columnes):
-	puntuacio[c] += 10**jugador;
+	puntuacio[col] += 10**jugador;
 	// puntuacio[3, 4, 5] (files):
-	puntuacio[r+3] += 10**jugador;
+	puntuacio[row+3] += 10**jugador;
 	// puntuacio[6] (diagonal ↘︎):
-	if (c === r) puntuacio[6] += 10**jugador;
+	if (col === row) puntuacio[6] += 10**jugador;
 	// puntuacio[7] (diagonal ↗︎):
-	const key = `${r}${c}`;
+	const key = `${row}${col}`;
 	if (key === "02" || key === "11" || key === "20")
 	  puntuacio[7] += 10**jugador;
   
@@ -48,52 +48,41 @@ const possiblesTirades = tauler => {
 	return tirs;
 };
 
-export const chJugadorMax = (x = false, o = true) => {
-	jugadorEsMax = { 
-		[X]: x, 
-		[O]: o 
-	};
+export const canviaMax = x => { 
+	jugadorEsMax = { [X]: x, [O]: !x }; 
 };
 
-let jugadorEsMax = {
-	[X]: false,
-	[O]: true,
-};
+let jugadorEsMax = { [X]: false, [O]: !X };
 
 let tirs = new Map();
-const profMax = -1;
 
-const copia = arr => {
-	let cp = [];
-	arr.forEach(el => { Array.isArray(el) ? cp.push(copia(el)) : cp.push(el); });
-	return cp;
-};
+const copia = arr => arr.map(el => Array.isArray(el) ? copia(el) : el);
+
+const MAX = 100, PROF_MAX = -1;
 
 export const millorTirada = (tauler, puntuacio, jugador, prof = 0) => {
 	if (prof === 0) tirs.clear();
 	
 	const guanyador = hihaGuanyador(puntuacio);
 
-	if (guanyador) return jugadorEsMax[guanyador.jugador] ? 10 - prof : prof - 10;
-	else if (!hihaTirades(tauler) || prof === profMax) return 0;
+	if (guanyador) return jugadorEsMax[guanyador.jugador] ? MAX - prof : prof - MAX;
+	else if (!hihaTirades(tauler) || prof === PROF_MAX) return 0;
 	
-	let m = jugadorEsMax[jugador] ? -10 : 10;
+	let millor = jugadorEsMax[jugador] ? -MAX : MAX;
 	
 	possiblesTirades(tauler).forEach(tir => {
 		const t = copia(tauler);
 		t[tir.row][tir.col] = jugador;
-
 		const p = calcPuntuacio(puntuacio, tir.row, tir.col, jugador);
-		let pTir = millorTirada(t, p, jugador === 1 ? 2 : 1, prof + 1);
-		m = jugadorEsMax[jugador] ? Math.max(m, pTir) : Math.min(m, pTir);
-
+		const pTir = millorTirada(t, p, jugador === X ? O : X, prof + 1);
+		millor = jugadorEsMax[jugador] ? Math.max(millor, pTir) : Math.min(millor, pTir);
 		if (prof === 0) tirs.set(pTir, tirs.has(pTir) ? [...tirs.get(pTir), tir] : [tir]);
 	});
 
 	if (prof === 0) {
-		let tm = tirs.get(m);
+		const tm = tirs.get(millor);
 		return tm.length > 1 ? tm[Math.floor(Math.random() * tm.length)] : tm[0];
 	}
 
-	return m;
+	return millor;
 }

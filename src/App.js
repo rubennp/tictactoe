@@ -9,7 +9,7 @@ import Configura from './components/Configura';
 import Icon from './components/Icon';
 
 import { 
-  calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, chJugadorMax,
+  calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, canviaMax,
   BUIT, X, O, HUMA, IA, icoJugadors, icoFitxa
 } from './utils';
 
@@ -79,11 +79,8 @@ export default function App() {
     millorTiradaIA && handleJugada(millorTiradaIA.row, millorTiradaIA.col);
   }, [millorTiradaIA]);
 
-  useEffect(() => {
-    chJugadorMax(
-      jugadors[X] === IA ? true : false,
-      jugadors[O] === IA ? true : false
-    );
+  useEffect(function canviaJugadorMax() {
+    canviaMax(jugadors[X] === IA ? true : false);
   }, [jugadors]);
 
   return (
