@@ -43,9 +43,7 @@ export const GlobalStyle = createGlobalStyle`
         background-color: oldlace;
         color: olivedrab;
 
-        span {
-            font-size: 48px;
-        }
+        span { font-size: 48px; }
     }
 
     h1 {
