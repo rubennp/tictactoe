@@ -58,7 +58,7 @@ let tirs = new Map();
 
 const copia = arr => arr.map(el => Array.isArray(el) ? copia(el) : el);
 
-const MAX = 100, PROF_MAX = -1;
+const MAX = Infinity, PROF_MAX = -1;
 
 export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX, beta = MAX) => {
 	if (prof === 0) tirs.clear();
