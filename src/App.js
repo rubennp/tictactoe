@@ -13,7 +13,7 @@ import {
   BUIT, X, O, HUMA, IA, icoJugadors, icoFitxa
 } from './utils';
 
-const COMENÇA_IA = 3, EMPAT = 3;
+const EMPAT = 3;
 
 const resetTauler = () => [
   [0, 0, 0],
@@ -47,19 +47,17 @@ export default function App() {
     setHiHaConfig(cfg);
   };
 
-  const iaOrJ = jugador === COMENÇA_IA ? X : jugador;
-
   const handleJugada = (row, col) => {
     setTauler(prev => {
-      if (prev[row][col] === BUIT) prev[row][col] = iaOrJ;
+      if (prev[row][col] === BUIT) prev[row][col] = jugador;
       return [...prev];
     });
 
-    setPuntuacio(prev => calcPuntuacio([...puntuacio], row, col, iaOrJ));
+    setPuntuacio(prev => calcPuntuacio([...puntuacio], row, col, jugador));
   };
 
   useEffect(function canviJugador() {
-    setJugador(prev => prev === X || prev === COMENÇA_IA ? O : X);
+    setJugador(prev => prev === X ? O : X);
   }, [tauler]);
 
   useEffect(function comprovaGuanyador() {
@@ -71,9 +69,9 @@ export default function App() {
   }, [puntuacio, guanya, tauler]);
   
   useEffect(function millorTiradaIA() {
-    if ((jugadors[jugador] === IA && !guanya) || jugador === COMENÇA_IA)
-      setMillorTiradaIA(millorTirada([...tauler], [...puntuacio], iaOrJ));
-  }, [jugador]);
+    if (jugadors[jugador] === IA && !guanya)
+      setMillorTiradaIA(millorTirada([...tauler], [...puntuacio], jugador));
+  }, [jugador, hihaConfig]);
 
   useEffect(function tiraIA() {
     millorTiradaIA && handleJugada(millorTiradaIA.row, millorTiradaIA.col);
@@ -97,7 +95,6 @@ export default function App() {
         <footer>
           <BtnJuga onClick={() => {
             setHiHaConfig(true);
-            if (jugadors[X] === IA) setJugador(COMENÇA_IA);
           }}>Juga!</BtnJuga>
         </footer>
       </>
@@ -119,7 +116,7 @@ export default function App() {
         </Tauler>
         <footer>
           <section>
-            {!guanya && <p>{jugador === 0 || jugador === COMENÇA_IA ? "Calculant..." : <span>Juga <Icon>{icoFitxa[jugador]}</Icon></span>}</p>}
+            {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga <Icon>{icoFitxa[jugador]}</Icon></span>}</p>}
             {(guanya && guanya === EMPAT) && <p>Empat!</p>}
             {(guanya && guanya < EMPAT) && <p>Guanya <Icon>{jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}</Icon>!</p>}
           </section>
