@@ -53,7 +53,7 @@ export default function App() {
       return [...prev];
     });
 
-    setPuntuacio(prev => calcPuntuacio([...puntuacio], row, col, jugador));
+    setPuntuacio(calcPuntuacio([...puntuacio], row, col, jugador));
   };
 
   useEffect(function canviJugador() {

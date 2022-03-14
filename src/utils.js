@@ -61,7 +61,7 @@ const copia = arr => arr.map(el => Array.isArray(el) ? copia(el) : el);
 const MAX = Infinity, PROF_MAX = -1, EMPAT = 0;
 
 export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX, beta = MAX) => {
-	// Init
+	// Init al entrar
 	if (prof === 0) tirs.clear();
 
 	// És terminal?
@@ -69,10 +69,10 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX,
 	if (guanyador) return jugadorEsMax[guanyador.jugador] ? MAX - prof : prof - MAX;
 	else if (!hihaTirades(tauler) || prof === PROF_MAX) return EMPAT;
 	
-	// Init millor
+	// Init millor a cada pas
 	let millor = jugadorEsMax[jugador] ? -MAX : MAX;
 	
-	// Recursiu, calcula puntuacio tirades possibles
+	// Recursivament, calcula puntuacio tirades possibles
 	possiblesTirades(tauler).forEach(tir => {
 		const t = copia(tauler);
 		t[tir.row][tir.col] = jugador;
