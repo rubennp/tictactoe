@@ -58,18 +58,21 @@ let tirs = new Map();
 
 const copia = arr => arr.map(el => Array.isArray(el) ? copia(el) : el);
 
-const MAX = Infinity, PROF_MAX = -1;
+const MAX = Infinity, PROF_MAX = -1, EMPAT = 0;
 
 export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX, beta = MAX) => {
+	// Init
 	if (prof === 0) tirs.clear();
 
+	// És terminal?
 	const guanyador = hihaGuanyador(puntuacio);
-
 	if (guanyador) return jugadorEsMax[guanyador.jugador] ? MAX - prof : prof - MAX;
-	else if (!hihaTirades(tauler) || prof === PROF_MAX) return 0;
+	else if (!hihaTirades(tauler) || prof === PROF_MAX) return EMPAT;
 	
+	// Init millor
 	let millor = jugadorEsMax[jugador] ? -MAX : MAX;
 	
+	// Recursiu, calcula puntuacio tirades possibles
 	possiblesTirades(tauler).forEach(tir => {
 		const t = copia(tauler);
 		t[tir.row][tir.col] = jugador;
@@ -81,10 +84,12 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX,
 		if (alpha >= beta) return;
 	});
 
+	// final recursivitat (ha tornat a prof 0), retorna millor tirada o random si més d'una amb la mateixa puntuació
 	if (prof === 0) {
 		const tm = tirs.get(millor);
 		return tm.length > 1 ? tm[Math.floor(Math.random() * tm.length)] : tm[0];
 	}
 
+	// retorna millor tirada (pas final recursiu)
 	return millor;
 }
