@@ -60,8 +60,7 @@ export default function App() {
     setJugador(prev => prev === X ? O : X);
   }, [tauler]);
 
-  useEffect(function comprovaGuanyador() {
-    const guanyador = hihaGuanyador(puntuacio);
+  useEffect(function comprovaGuanyador(guanyador = hihaGuanyador(puntuacio)) {
     if (guanyador) {
       setGuanya(guanyador.jugador);
       setIdxGuanya(guanyador.linia);
