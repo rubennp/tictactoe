@@ -7,27 +7,27 @@ import { X, O, HUMA, IA, icoJugadors, icoFitxa } from '../utils';
 export default function Configura({ jugadors, setJugadors}) {
     return (
         <ConfiguraStyles>
-            <div>
-                <Icon>{icoFitxa[X]}</Icon>
-                <Btn onClick={() => {
-                    setJugadors(prev => { return {
-                        [X]: prev[X] === HUMA ? IA : HUMA,
-                        [O]: prev[O] === IA ? HUMA : prev[O],
-                    }});
-                }}><Icon>{icoJugadors[jugadors[X]]}</Icon></Btn>
-            </div>
-            <div>
-                <Icon>{icoFitxa[O]}</Icon>
-                <Btn onClick={() => {
-                    setJugadors(prev => { return {
-                        [O]: prev[O] === HUMA ? IA : HUMA,
-                        [X]: prev[X] === IA ? HUMA : prev[X],
-                    }});
-                }}><Icon>{icoJugadors[jugadors[O]]}</Icon></Btn>
-            </div>
+            {Object.keys(jugadors).map(j => 
+                <Jugador key={j} jugador={parseInt(j)} jugadors={jugadors} setJugadors={setJugadors} />
+            )}
         </ConfiguraStyles>
     );
 };
+
+const Jugador = ({jugador, jugadors, setJugadors}) => {
+    const jugador2 = jugador === X ? O : X;
+    return (
+        <div>
+            <Icon>{icoFitxa[jugador]}</Icon>
+            <Btn onClick={() => {
+                setJugadors(prev => { return {
+                    [jugador]: prev[jugador] === HUMA ? IA : HUMA,
+                    [jugador2]: prev[jugador2] === IA ? HUMA : prev[jugador2],
+                }});
+            }}><Icon>{icoJugadors[jugadors[jugador]]}</Icon></Btn>
+        </div>
+    );
+}
 
 const ConfiguraStyles = styled.div`
     display: flex;

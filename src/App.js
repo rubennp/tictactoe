@@ -49,7 +49,7 @@ export default function App() {
 
   const handleJugada = (row, col) => {
     setTauler(prev => {
-      if (prev[row][col] === BUIT) prev[row][col] = jugador;
+      prev[row][col] = jugador;
       return [...prev];
     });
 

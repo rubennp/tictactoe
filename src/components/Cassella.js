@@ -20,7 +20,7 @@ export default function Cassella({ row, col, tauler, jugada, guanya }) {
             row={row} 
             col={col} 
             tauler={tauler} 
-            onClick={!guanya ? e => {
+            onClick={!guanya ? () => {
                 if (tauler[row][col] === BUIT) jugada(row, col);
             } : null }
             guanya={guanya}
@@ -46,7 +46,9 @@ const CassellaStyles = styled.div`
             return `
                 background-color: oldlace;
                 cursor: pointer;
-            `
+            `;
+          } else {
+              return `cursor: not-allowed;`;
           }
       }}
   }
