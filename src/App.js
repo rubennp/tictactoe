@@ -10,7 +10,7 @@ import Icon from './components/Icon';
 
 import { 
   calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, canviaMax,
-  BUIT, X, O, HUMA, IA, icoJugadors, icoFitxa
+  X, O, HUMA, IA, icoJugadors, icoFitxa
 } from './utils';
 
 const EMPAT = 3;
