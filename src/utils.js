@@ -1,7 +1,7 @@
-export const BUIT = 0, X = 1, O = 2, HUMA = X, IA = O;
+export const BUIT = 0, X = 1, O = 2, HUMA = 0, IA = 1;
 
 // Google Material Icons
-export const icoJugadors = ["", "face", "smart_toy"];
+export const icoJugadors = ["face", "smart_toy"];
 export const icoFitxa = [ "", "clear", "radio_button_unchecked"];
 
 export const calcPuntuacio = (p, row, col, jugador) => {
