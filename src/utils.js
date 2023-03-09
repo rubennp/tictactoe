@@ -1,9 +1,22 @@
-export const BUIT = 0, X = 1, O = 2, HUMA = 0, IA = 1;
+export const 
+	BUIT = 0, 
+	X = 1, 
+	O = 2, 
+	HUMA = 0, 
+	IA = 1;
+
+const 
+	MAX = Infinity, 
+	PROF_MAX = -1, 		// desactiva poda per profunditat
+	EMPAT = 0;
 
 // Google Material Icons
 export const icoJugadors = ["face", "smart_toy"];
 export const icoFitxa = [ "", "clear", "radio_button_unchecked"];
 
+/*
+ * calcPuntuacio(): actualitza la puntuació de la columna, fila o diagonal amb el moviment del jugador actual
+ */
 export const calcPuntuacio = (p, row, col, jugador) => {
 	let puntuacio = [...p];
 
@@ -21,6 +34,9 @@ export const calcPuntuacio = (p, row, col, jugador) => {
 	return puntuacio;
 }
 
+/*
+ * hihaGualnyador(): calcula si hi ha un guanyador amb l'últim moviment
+ */
 export const hihaGuanyador = puntuacio => {
 	for (let linia in puntuacio) {
 		if (puntuacio[linia] === 30) return { jugador: X, linia: linia };
@@ -29,8 +45,24 @@ export const hihaGuanyador = puntuacio => {
 	return false;
 };
 
+/*
+ * hihaTirades(): calcula si queden tirades possibles
+ */
 export const hihaTirades = tauler => tauler.flat().includes(BUIT);
 
+/* ===========================================
+ * UTILS per algoritme minimax de millorTirada
+ * =========================================== */
+
+// jugador max
+let jugadorEsMax = { [X]: false, [O]: !X };
+
+// guardarà millor/s tirades possibles per triar
+let tirs = new Map();
+
+/*
+ * possiblesTirades() : calcula les tirades que queden disponibles
+ */
 const possiblesTirades = tauler => {
 	let tirs = [];
 
@@ -48,28 +80,33 @@ const possiblesTirades = tauler => {
 	return tirs;
 };
 
+/*
+ * canviaMax(): canvia el jugador max
+ */
 export const canviaMax = x => { 
 	jugadorEsMax = { [X]: x, [O]: !x }; 
 };
 
-let jugadorEsMax = { [X]: false, [O]: !X };
-
-let tirs = new Map();
-
+/*
+ * copia(): còpia Arrays i Arrays d'Arrays
+ */
 const copia = arr => arr.map(el => Array.isArray(el) ? copia(el) : el);
 
-const MAX = Infinity, PROF_MAX = -1, EMPAT = 0;
-
-export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX, beta = MAX) => {
-	// Init al entrar
+/*
+ * millorTirada() : funció amb algoritme minimax i poda alfa-beta
+ */
+export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alfa = -MAX, beta = MAX) => {
+	// Inicialitza tirs en entrar
 	if (prof === 0) tirs.clear();
 
-	// És terminal?
+	// LA POSSIBLE TIRADA ÉS TERMINAL?
 	const guanyador = hihaGuanyador(puntuacio);
+		// si hi ha guanyador: retorna valoració segons és min o max
 	if (guanyador) return jugadorEsMax[guanyador.jugador] ? MAX - prof : prof - MAX;
+		// sinó i no hi ha més tirades o hem arribat a profunditat màxima: retorna empat
 	else if (!hihaTirades(tauler) || prof === PROF_MAX) return EMPAT;
 	
-	// Init millor a cada pas
+	// Inicialitza millor (millor puntuació hipotètica per comparar real) a cada pas amb min o max
 	let millor = jugadorEsMax[jugador] ? -MAX : MAX;
 	
 	// Recursivament, calcula puntuacio tirades possibles
@@ -77,14 +114,14 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alpha = -MAX,
 		const t = copia(tauler);
 		t[tir.row][tir.col] = jugador;
 		const p = calcPuntuacio(puntuacio, tir.row, tir.col, jugador);
-		const pTir = millorTirada(t, p, jugador === X ? O : X, prof + 1, alpha, beta);
+		const pTir = millorTirada(t, p, jugador === X ? O : X, prof + 1, alfa, beta);
 		millor = jugadorEsMax[jugador] ? Math.max(millor, pTir) : Math.min(millor, pTir);
-		jugadorEsMax[jugador] ? alpha = Math.max(alpha, millor) : beta = Math.min(beta, millor);
+		jugadorEsMax[jugador] ? alfa = Math.max(alfa, millor) : beta = Math.min(beta, millor);
 		if (prof === 0) tirs.set(pTir, tirs.has(pTir) ? [...tirs.get(pTir), tir] : [tir]);
-		if (alpha >= beta) return;
+		if (alfa >= beta) return;
 	});
 
-	// final recursivitat (ha tornat a prof 0), retorna millor tirada o random si més d'una amb la mateixa puntuació
+	// Final recursivitat (ha tornat a prof 0), retorna millor tirada o random si més d'una amb la mateixa puntuació
 	if (prof === 0) {
 		const tm = tirs.get(millor);
 		return tm.length > 1 ? tm[Math.floor(Math.random() * tm.length)] : tm[0];
