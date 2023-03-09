@@ -109,13 +109,18 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alfa = -MAX, 
 	// Inicialitza millor (millor puntuació hipotètica per comparar real) a cada pas amb min o max
 	let millor = jugadorEsMax[jugador] ? -MAX : MAX;
 	
-	// Recursivament, calcula puntuacio tirades possibles
+	// Calcula valoració de les tirades possibles
 	possiblesTirades(tauler).forEach(tir => {
 		const t = copia(tauler);
+		// fa tirada
 		t[tir.row][tir.col] = jugador;
+		// calcula puntuacions amb tirada feta
 		const p = calcPuntuacio(puntuacio, tir.row, tir.col, jugador);
+		// tirada del següent jugador (entra recursivament a millorTirada amb el següent jugador)
 		const pTir = millorTirada(t, p, jugador === X ? O : X, prof + 1, alfa, beta);
+		// màxim o mínim entre última crida i millor
 		millor = jugadorEsMax[jugador] ? Math.max(millor, pTir) : Math.min(millor, pTir);
+		//guarda alfa o beta segons jugador és min o max
 		jugadorEsMax[jugador] ? alfa = Math.max(alfa, millor) : beta = Math.min(beta, millor);
 		if (prof === 0) tirs.set(pTir, tirs.has(pTir) ? [...tirs.get(pTir), tir] : [tir]);
 		if (alfa >= beta) return;
@@ -127,6 +132,6 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alfa = -MAX, 
 		return tm.length > 1 ? tm[Math.floor(Math.random() * tm.length)] : tm[0];
 	}
 
-	// retorna millor tirada (pas final recursiu)
+	// retorna millor tirada (pas final recursiu però no final)
 	return millor;
 }
