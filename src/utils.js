@@ -3,12 +3,13 @@ export const
 	X = 1, 
 	O = 2, 
 	HUMA = 0, 
-	IA = 1;
+	IA = 1,
+	EMPAT = 3;
 
 const 
 	MAX = Infinity, 
 	PROF_MAX = -1, 		// desactiva poda per profunditat
-	EMPAT = 0;
+	EMPATA = 0;
 
 // Google Material Icons
 export const icoJugadors = ["face", "smart_toy"];
@@ -104,7 +105,7 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alfa = -MAX, 
 		// si hi ha guanyador: retorna valoració segons és min o max
 	if (guanyador) return jugadorEsMax[guanyador.jugador] ? MAX - prof : prof - MAX;
 		// sinó i no hi ha més tirades o hem arribat a profunditat màxima: retorna empat
-	else if (!hihaTirades(tauler) || prof === PROF_MAX) return EMPAT;
+	else if (!hihaTirades(tauler) || prof === PROF_MAX) return EMPATA;
 	
 	// Inicialitza millor (millor puntuació hipotètica per comparar real) a cada pas amb min o max
 	let millor = jugadorEsMax[jugador] ? -MAX : MAX;

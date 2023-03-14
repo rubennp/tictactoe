@@ -4,13 +4,13 @@ import { BsGithub, BsLinkedin } from 'react-icons/bs';
 
 const icon = {
     "gh" : <BsGithub />,
-    "lk" : <BsLinkedin />,
+    "li" : <BsLinkedin />,
 };
 
-export default function Social ({social, href}) {
+export default function Social ({ico, href}) {
     return (
         <SocialBtn href={href} target="_blank" rel="noreferrer">
-            {icon[social]}
+            {icon[ico]}
         </SocialBtn>
       ); 
 };
