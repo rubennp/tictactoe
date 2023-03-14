@@ -7,6 +7,7 @@ import Cassella from './components/Cassella';
 import Btn from './components/Btn';
 import Configura from './components/Configura';
 import Icon from './components/Icon';
+import Social from './components/Social';
 
 import { 
   calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, canviaMax,
@@ -91,11 +92,11 @@ export default function App() {
           <p>Clicla el botó rodó de sota cada símbol<br/>per canviar-ne el jugador</p>
           <Configura jugadors={jugadors} setJugadors={setJugadors} />
         </section>
-        <footer>
+        <section>
           <BtnJuga onClick={() => {
             setHiHaConfig(true);
           }}>Juga!</BtnJuga>
-        </footer>
+        </section>
       </>
       :
       <>
@@ -113,11 +114,11 @@ export default function App() {
             });
           })}
         </Tauler>
-        <footer>
+        <section>
           <section>
             {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga <Icon>{icoFitxa[jugador]}</Icon></span>}</p>}
             {(guanya && guanya === EMPAT) && <p>Empat!</p>}
-            {(guanya && guanya < EMPAT) && <p>Guanya <Icon>{jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}</Icon>!</p>}
+            {(guanya && guanya !== EMPAT) && <p>Guanya <Icon>{jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}</Icon>!</p>}
           </section>
           <OpcionsJoc>
             <Btn onClick={() => {
@@ -127,9 +128,14 @@ export default function App() {
               resetJoc(false);
             }}>Configura</Btn>
           </OpcionsJoc>
-        </footer>
+        </section>
+        
       </>
       }
+      <footer>
+          <Social social="lk" href="https://www.linkedin.com/in/rubennp/" />
+          <Social social="gh" href="https://github.com/rubennp/tres-en-ratlla" />
+      </footer>
     </main>
   );
 };

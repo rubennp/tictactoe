@@ -14,28 +14,35 @@ export const GlobalStyle = createGlobalStyle`
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr;
         justify-items: center;
-        align-items: center;
+        align-items: stretch;
         height: 100%;
 
-        section {
+        header, section, footer {
             display: flex;
             flex-direction: column;
-            justify-items: flex-end;
             align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
 
-            p { 
-                margin: 0 0 2.5em; 
-                font-size: 1.5em;
-                color: darkslategrey;
-            }
+        section p {
+            margin: 0 0 2.5em; 
+            font-size: 1.5em;
+            color: darkslategrey;
         }
 
         footer {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
+            padding: 2em;
+            flex-direction: row;
+
+            * {
+                margin: .1em;
+            }
+
+            p {
+                font-size: .75em;
+                font-family: 'Courier New', Courier, monospace
+            }
         }
     }
 
