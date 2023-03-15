@@ -1,7 +1,6 @@
-import styled from 'styled-components';
+import Config from './Config';
 
-import Btn from './Btn';
-import Configura from './Configura';
+import BttnJuga from '../styles/BttnJuga.styled';
 
 export default function Home ({
     jugadors,
@@ -12,18 +11,13 @@ export default function Home ({
       <>
         <section>
           <p>Clicla el botó rodó de sota cada símbol<br/>per canviar-ne el jugador</p>
-          <Configura jugadors={jugadors} setJugadors={setJugadors} />
+          <Config jugadors={jugadors} setJugadors={setJugadors} />
         </section>
         <section>
-          <BtnJuga onClick={() => {
+          <BttnJuga onClick={() => {
             setHiHaConfig(true);
-          }}>Juga!</BtnJuga>
+          }}>Juga!</BttnJuga>
         </section>
       </>
     );
 };
-
-const BtnJuga = styled(Btn)`
-  width: 25%;
-  font-size: 1.5em;
-`;

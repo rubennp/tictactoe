@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Btn = styled.div`
+const Bttn = styled.div`
     color: maroon;
     background-color: oldlace;
     padding: 1rem;
@@ -15,5 +15,5 @@ const Btn = styled.div`
     }
 `;
 
-export default Btn;
+export default Bttn;
 

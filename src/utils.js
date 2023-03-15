@@ -1,3 +1,6 @@
+import { ImCross, ImRadioUnchecked } from 'react-icons/im'; // icones fitxes
+import { BsPerson, BsRobot } from 'react-icons/bs'; // icones jugador
+
 export const 
 	BUIT = 0, 
 	X = 1, 
@@ -12,8 +15,8 @@ const
 	EMPATA = 0;
 
 // Google Material Icons
-export const icoJugadors = ["face", "smart_toy"];
-export const icoFitxa = [ "", "clear", "radio_button_unchecked"];
+export const icoJugadors = [ <BsPerson />, <BsRobot />, ];
+export const icoFitxa = [ "", <ImCross class="icoFitxa" />, <ImRadioUnchecked class="icoFitxa" /> ];
 
 /*
  * calcPuntuacio(): actualitza la puntuació de la columna, fila o diagonal amb el moviment del jugador actual

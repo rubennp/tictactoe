@@ -1,6 +1,5 @@
-import styled from "styled-components";
+import CassellaStyled from "../styles/Cassella.styled";
 
-import Icon from './Icon';
 import { BUIT, icoFitxa } from '../utils';
 
 const keysGuanyadores = [
@@ -16,7 +15,7 @@ const keysGuanyadores = [
 
 export default function Cassella({ row, col, tauler, jugada, guanya }) {
     return (
-        <CassellaStyles 
+        <CassellaStyled 
             row={row} 
             col={col} 
             tauler={tauler} 
@@ -26,30 +25,7 @@ export default function Cassella({ row, col, tauler, jugada, guanya }) {
             guanya={guanya}
             className={(guanya !== null && keysGuanyadores[guanya].includes(`${row}${col}`)) ? 'guanya' : null}
         >
-            <Icon>
-                {icoFitxa[tauler[row][col]]}
-            </Icon>
-        </CassellaStyles>
+            {icoFitxa[tauler[row][col]]}
+        </CassellaStyled>
     );
 };
-
-const CassellaStyles = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: .5px solid grey;
-    font-size: 2.5rem;
-    
-    :hover {
-      ${({row, col, tauler, guanya }) => {
-          if (!guanya && tauler[row][col] === BUIT) {
-            return `
-                background-color: oldlace;
-                cursor: pointer;
-            `;
-          } else {
-              return `cursor: not-allowed;`;
-          }
-      }}
-  }
-`;
