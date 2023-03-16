@@ -10,7 +10,9 @@ export default function Home ({
     return (
       <>
         <section>
-          <p>Clicla el botó rodó de sota cada símbol<br/>per canviar-ne el jugador</p>
+          <header>
+            <p>Clicla el botó rodó de sota cada símbol<br/>per canviar-ne el jugador</p>
+          </header>
           <Config jugadors={jugadors} setJugadors={setJugadors} />
         </section>
         <section>

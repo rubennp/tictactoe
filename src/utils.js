@@ -14,7 +14,7 @@ const
 	PROF_MAX = -1, 		// desactiva poda per profunditat
 	EMPATA = 0;
 
-// Google Material Icons
+// Icones
 export const icoJugadors = [ <BsPerson />, <BsRobot />, ];
 export const icoFitxa = [ "", <ImCross class="icoFitxa" />, <ImRadioUnchecked class="icoFitxa" /> ];
 
@@ -39,7 +39,7 @@ export const calcPuntuacio = (p, row, col, jugador) => {
 }
 
 /*
- * hihaGualnyador(): calcula si hi ha un guanyador amb l'últim moviment
+ * hihaGuanyador(): calcula si hi ha un guanyador amb l'últim moviment
  */
 export const hihaGuanyador = puntuacio => {
 	for (let linia in puntuacio) {

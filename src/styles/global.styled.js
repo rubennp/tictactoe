@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     main {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: .5fr 1fr 1fr .5fr;
         justify-items: center;
         align-items: center;
         height: 100%;
@@ -29,6 +29,19 @@ export const GlobalStyle = createGlobalStyle`
             width: 100%;
         }
 
+        header h1 {
+            font-weight: 700;
+            font-size: 5rem;
+            color: lightsalmon;
+            text-shadow: 1px 1px 1px black;
+        }
+
+        section header p {  // info botons
+            padding: 2em;
+            font-weight: 400;
+            font-size: 1.5em;
+        }
+
         footer {
             padding: 2em;
             flex-direction: row;
@@ -36,31 +49,12 @@ export const GlobalStyle = createGlobalStyle`
             * {
                 margin: .1em;
             }
-
-            p {
-                font-size: .75em;
-                font-family: 'Courier New', Courier, monospace
-            }
         }
     }
 
     .guanya {
         background-color: oldlace;
         color: olivedrab;
-
-        span { font-size: 48px; }
-    }
-
-    h1 {
-        font-size: 1em;
-        font-weight: 700;
-        font-size: 5rem;
-        color: lightsalmon;
-        text-shadow: 1px 1px 1px black;
-    }
-
-    p {
-        font-weight: 400;
-        font-size: 2vw;
+        font-size: 60px;
     }
 `;

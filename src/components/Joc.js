@@ -22,9 +22,6 @@ export default function Joc ({
         <Tauler tauler={tauler} handleJugada={handleJugada} idxGuanya={idxGuanya} />
         <section>
           <InfoJoc guanya={guanya} jugador={jugador} jugadors={jugadors} />
-            {/* {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga {icoFitxa[jugador]}</span>}</p>}
-            {(guanya && guanya === EMPAT) && <p>Empat!</p>}
-            {(guanya && guanya !== EMPAT) && <p>Guanya {jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}!</p>} */}
           <OpcionsJoc>
             <Bttn onClick={() => {
               resetJoc(true);
@@ -43,7 +40,7 @@ export default function Joc ({
       <InfoJocStyled>
         {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga {icoFitxa[jugador]}</span>}</p>}
         {(guanya && guanya === EMPAT) && <p>Empat!</p>}
-        {(guanya && guanya !== EMPAT) && <p>Guanya {jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}!</p>}
+        {(guanya && guanya !== EMPAT) && <p>Guanya {jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}</p>}
       </InfoJocStyled>
     );
   };
@@ -52,9 +49,12 @@ export default function Joc ({
     display: flex;
  
     p {
-      margin: 1em;
-      span {
-        font-size: .75em;
+      font-size: 1.5em;
+      padding: 1em;
+      text-align: center;
+
+      svg {
+        vertical-align: middle;
       }
     }
   `;
