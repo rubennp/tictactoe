@@ -5,8 +5,8 @@ const OpcionsJoc = styled.div`
     flex-direction: row;
 
     div {
-    margin: 0 1em;
-    font-size: 2vw;
+        margin: 0 1em;
+        font-size: 2vw;
     }
 `;
 

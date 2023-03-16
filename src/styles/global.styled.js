@@ -1,12 +1,16 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
     html, body, div#root {
         font-family: 'Cabin Sketch', cursive;
         text-align: center;
         height: 100%;
         width: 100%;
-        margin: 0;
     }
 
     main {
@@ -14,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr;
         justify-items: center;
-        align-items: stretch;
+        align-items: center;
         height: 100%;
 
         header, section, footer {
@@ -23,12 +27,6 @@ export const GlobalStyle = createGlobalStyle`
             align-items: center;
             justify-content: center;
             width: 100%;
-        }
-
-        section p {
-            margin: 0 0 2.5em; 
-            font-size: 1.5em;
-            color: darkslategrey;
         }
 
         footer {
@@ -54,7 +52,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1 {
-        font-size: 1vw;
+        font-size: 1em;
         font-weight: 700;
         font-size: 5rem;
         color: lightsalmon;
@@ -65,6 +63,4 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         font-size: 2vw;
     }
-
-    span { vertical-align: middle; }
 `;

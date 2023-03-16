@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import Tauler from './Tauler';
 
 import Bttn from '../styles/Bttn.styled';
@@ -20,11 +21,10 @@ export default function Joc ({
       <>
         <Tauler tauler={tauler} handleJugada={handleJugada} idxGuanya={idxGuanya} />
         <section>
-          <section>
-            {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga {icoFitxa[jugador]}</span>}</p>}
+          <InfoJoc guanya={guanya} jugador={jugador} jugadors={jugadors} />
+            {/* {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga {icoFitxa[jugador]}</span>}</p>}
             {(guanya && guanya === EMPAT) && <p>Empat!</p>}
-            {(guanya && guanya !== EMPAT) && <p>Guanya {jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}!</p>}
-          </section>
+            {(guanya && guanya !== EMPAT) && <p>Guanya {jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}!</p>} */}
           <OpcionsJoc>
             <Bttn onClick={() => {
               resetJoc(true);
@@ -37,3 +37,24 @@ export default function Joc ({
       </>
     );
   };
+
+  const InfoJoc = ({ guanya, jugador, jugadors }) => {
+    return (
+      <InfoJocStyled>
+        {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga {icoFitxa[jugador]}</span>}</p>}
+        {(guanya && guanya === EMPAT) && <p>Empat!</p>}
+        {(guanya && guanya !== EMPAT) && <p>Guanya {jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}!</p>}
+      </InfoJocStyled>
+    );
+  };
+
+  const InfoJocStyled = styled.div`
+    display: flex;
+ 
+    p {
+      margin: 1em;
+      span {
+        font-size: .75em;
+      }
+    }
+  `;
