@@ -1,19 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 
-import Cassella from './components/Cassella';
-import Btn from './components/Btn';
-import Configura from './components/Configura';
-import Icon from './components/Icon';
+import Home from './components/Home';
+import Joc from './components/Joc';
+import Social from './components/Social';
 
 import { 
   calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, canviaMax,
-  X, O, HUMA, IA, icoJugadors, icoFitxa
+  X, O, HUMA, IA, EMPAT,
 } from './utils';
-
-const EMPAT = 3;
 
 const resetTauler = () => [
   [0, 0, 0],
@@ -86,76 +82,26 @@ export default function App() {
           <h1>Tres en ratlla</h1>
       </header>
       {!hihaConfig ?
-      <>
-        <section>
-          <p>Clicla el botó rodó de sota cada símbol<br/>per canviar-ne el jugador</p>
-          <Configura jugadors={jugadors} setJugadors={setJugadors} />
-        </section>
-        <footer>
-          <BtnJuga onClick={() => {
-            setHiHaConfig(true);
-          }}>Juga!</BtnJuga>
-        </footer>
-      </>
+        <Home 
+          jugadors={jugadors}
+          setJugadors={setJugadors}
+          setHiHaConfig={setHiHaConfig} 
+        />
       :
-      <>
-        <Tauler>
-          {tauler.map((row, rowidx) => {
-            return row.map((col, colidx) => {
-              return <Cassella 
-                  key={`${rowidx}${colidx}`} 
-                  jugada={handleJugada}
-                  row={rowidx}
-                  col={colidx}
-                  tauler={tauler}
-                  guanya={idxGuanya}
-                />
-            });
-          })}
-        </Tauler>
-        <footer>
-          <section>
-            {!guanya && <p>{jugador === 0 || jugadors[jugador] === IA ? "Calculant..." : <span>Juga <Icon>{icoFitxa[jugador]}</Icon></span>}</p>}
-            {(guanya && guanya === EMPAT) && <p>Empat!</p>}
-            {(guanya && guanya < EMPAT) && <p>Guanya <Icon>{jugadors[X] === jugadors[O] ? icoFitxa[guanya] : icoJugadors[jugadors[guanya]]}</Icon>!</p>}
-          </section>
-          <OpcionsJoc>
-            <Btn onClick={() => {
-              resetJoc(true);
-            }}>Torna a { guanya ? "jugar!" : "començar"}</Btn>
-            <Btn onClick={() => {
-              resetJoc(false);
-            }}>Configura</Btn>
-          </OpcionsJoc>
-        </footer>
-      </>
+        <Joc 
+          tauler={tauler} 
+          handleJugada={handleJugada} 
+          idxGuanya={idxGuanya}
+          guanya={guanya}
+          jugador={jugador}
+          jugadors={jugadors}
+          resetJoc={resetJoc}
+        />
       }
+      <footer>
+          <Social ico="li" href="https://www.linkedin.com/in/rubennp/" />
+          <Social ico="gh" href="https://github.com/rubennp/tres-en-ratlla" />
+      </footer>
     </main>
   );
 };
-
-const Tauler = styled.div`
-  display: grid;
-  width: 300px;
-  height: 300px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  margin: 0;
-  padding: 0;
-  border: .5px solid grey;
-`;
-
-const OpcionsJoc = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  div {
-    margin: 0 1em;
-    font-size: 2vw;
-  }
-`;
-
-const BtnJuga = styled(Btn)`
-  width: 25%;
-  font-size: 1.5em;
-`;

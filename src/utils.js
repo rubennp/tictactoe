@@ -1,18 +1,24 @@
+import { ImCross, ImRadioUnchecked } from 'react-icons/im'; // icones fitxes
+import { BsPerson, BsRobot } from 'react-icons/bs'; // icones jugador
+
 export const 
 	BUIT = 0, 
 	X = 1, 
 	O = 2, 
 	HUMA = 0, 
-	IA = 1;
+	IA = 1,
+	EMPAT = 3,
+	JUGA = true,		// per a resetJoc
+	CONFIGURA = false;
 
 const 
 	MAX = Infinity, 
 	PROF_MAX = -1, 		// desactiva poda per profunditat
-	EMPAT = 0;
+	EMPATA = 0;
 
-// Google Material Icons
-export const icoJugadors = ["face", "smart_toy"];
-export const icoFitxa = [ "", "clear", "radio_button_unchecked"];
+// Icones
+export const icoJugadors = [ <BsPerson />, <BsRobot />, ];
+export const icoFitxa = [ "", <ImCross class="icoFitxa" />, <ImRadioUnchecked class="icoFitxa" /> ];
 
 /*
  * calcPuntuacio(): actualitza la puntuació de la columna, fila o diagonal amb el moviment del jugador actual
@@ -35,7 +41,7 @@ export const calcPuntuacio = (p, row, col, jugador) => {
 }
 
 /*
- * hihaGualnyador(): calcula si hi ha un guanyador amb l'últim moviment
+ * hihaGuanyador(): calcula si hi ha un guanyador amb l'últim moviment
  */
 export const hihaGuanyador = puntuacio => {
 	for (let linia in puntuacio) {
@@ -104,7 +110,7 @@ export const millorTirada = (tauler, puntuacio, jugador, prof = 0, alfa = -MAX, 
 		// si hi ha guanyador: retorna valoració segons és min o max
 	if (guanyador) return jugadorEsMax[guanyador.jugador] ? MAX - prof : prof - MAX;
 		// sinó i no hi ha més tirades o hem arribat a profunditat màxima: retorna empat
-	else if (!hihaTirades(tauler) || prof === PROF_MAX) return EMPAT;
+	else if (!hihaTirades(tauler) || prof === PROF_MAX) return EMPATA;
 	
 	// Inicialitza millor (millor puntuació hipotètica per comparar real) a cada pas amb min o max
 	let millor = jugadorEsMax[jugador] ? -MAX : MAX;
