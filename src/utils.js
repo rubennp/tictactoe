@@ -7,7 +7,9 @@ export const
 	O = 2, 
 	HUMA = 0, 
 	IA = 1,
-	EMPAT = 3;
+	EMPAT = 3,
+	JUGA = true,		// per a resetJoc
+	CONFIGURA = false;
 
 const 
 	MAX = Infinity, 

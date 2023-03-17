@@ -8,7 +8,7 @@ import Social from './components/Social';
 
 import { 
   calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, canviaMax,
-  X, O, HUMA, IA, EMPAT
+  X, O, HUMA, IA, EMPAT,
 } from './utils';
 
 const resetTauler = () => [
