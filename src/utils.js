@@ -18,7 +18,7 @@ const
 
 // Icones
 export const icoJugadors = [ <BsPerson />, <BsRobot />, ];
-export const icoFitxa = [ "", <ImCross class="icoFitxa" />, <ImRadioUnchecked class="icoFitxa" /> ];
+export const icoFitxa = [ "", <ImCross className="icoFitxa" />, <ImRadioUnchecked className="icoFitxa" /> ];
 
 /*
  * calcPuntuacio(): actualitza la puntuació de la columna, fila o diagonal amb el moviment del jugador actual
