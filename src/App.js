@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Home from './components/Home';
 import Joc from './components/Joc';
 import Social from './components/Social';
+import BttnBio from './styles/BttnBio.styled';
 
 import { 
   calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, canviaMax,
@@ -80,6 +81,7 @@ export default function App() {
     <main>
       <header>
           <h1>Tres en ratlla</h1>
+          <BttnBio />
       </header>
       {!hihaConfig ?
         <Home 
