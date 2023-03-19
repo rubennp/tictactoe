@@ -21,10 +21,10 @@ export default function Joc ({
       <section>
         <InfoJoc guanya={guanya} jugador={jugador} jugadors={jugadors} />
         <OpcionsJoc>
-          <Bttn onClick={() => {
+          <Bttn className="opcionsJoc" onClick={() => {
             resetJoc(JUGA);
           }} alt="Jugar">Torna a { guanya ? "jugar!" : "començar"}</Bttn>
-          <Bttn onClick={() => {
+          <Bttn className="opcionsJoc" onClick={() => {
             resetJoc(CONFIGURA);
           }} alt="Configurar">Configura</Bttn>
         </OpcionsJoc>

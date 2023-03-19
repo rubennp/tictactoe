@@ -48,7 +48,6 @@ export const GlobalStyle = createGlobalStyle`
 
         footer {
             padding: 2em;
-            flex-direction: row;
 
             * {
                 margin: .1em;

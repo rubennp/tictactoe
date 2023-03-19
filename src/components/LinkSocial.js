@@ -1,6 +1,6 @@
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 
-import BttnSocial from '../styles/BttnSocial.styled';
+import Link from '../styles/Link.styled';
 
 const icon = {
     "gh" : <BsGithub />,
@@ -9,8 +9,8 @@ const icon = {
 
 export default function Social ({ico, href}) {
     return (
-        <BttnSocial href={href} target="_blank" rel="noreferrer">
+        <Link className="social" href={href} target="_blank" rel="noreferrer">
             {icon[ico]}
-        </BttnSocial>
+        </Link>
       ); 
 };

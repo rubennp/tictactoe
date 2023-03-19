@@ -7,7 +7,7 @@ export default function ConfigJugador ({jugador, jugadors, setJugadors}) {
     return (
         <div>
             {icoFitxa[jugador]} 
-            <Bttn onClick={() => {
+            <Bttn className="jugador" onClick={() => {
                 setJugadors(prev => { return {
                     [jugador]: prev[jugador] === HUMA ? IA : HUMA,
                     [jugador2]: prev[jugador2] === IA ? HUMA : prev[jugador2],

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Home from './components/Home';
 import Joc from './components/Joc';
-import Social from './components/Social';
-import BttnBio from './styles/BttnBio.styled';
+import LinkSocial from './components/LinkSocial';
+import LinkBio from './components/LinkBio';
 
 import { 
   calcPuntuacio, millorTirada, hihaGuanyador, hihaTirades, canviaMax,
@@ -80,8 +80,7 @@ export default function App() {
   return (
     <main>
       <header>
-          <h1>Tres en ratlla</h1>
-          <BttnBio src="./img/foto.jpg" />
+        <h1>Tres en ratlla</h1>  
       </header>
       {!hihaConfig ?
         <Home 
@@ -101,8 +100,13 @@ export default function App() {
         />
       }
       <footer>
-          <Social ico="li" href="https://www.linkedin.com/in/rubennp/" />
-          <Social ico="gh" href="https://github.com/rubennp/tres-en-ratlla" />
+          <div>
+            <LinkBio />
+          </div>
+          <div>
+            <LinkSocial ico="li" href="https://www.linkedin.com/in/rubennp/" />
+            <LinkSocial ico="gh" href="https://github.com/rubennp/tres-en-ratlla" />
+          </div>
       </footer>
     </main>
   );

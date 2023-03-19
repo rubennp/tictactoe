@@ -1,6 +1,6 @@
 import Config from './Config';
 
-import BttnJuga from '../styles/BttnJuga.styled';
+import Bttn from '../styles/Bttn.styled';
 
 export default function Home ({
     jugadors,
@@ -16,9 +16,9 @@ export default function Home ({
           <Config jugadors={jugadors} setJugadors={setJugadors} />
         </section>
         <section>
-          <BttnJuga onClick={() => {
+          <Bttn className="juga" onClick={() => {
             setHiHaConfig(true);
-          }}>Juga!</BttnJuga>
+          }}>Juga!</Bttn>
         </section>
       </>
     );
