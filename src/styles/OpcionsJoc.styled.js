@@ -4,9 +4,9 @@ const OpcionsJoc = styled.div`
     display: flex;
     flex-direction: row;
 
-    div {
-        margin: 0 1em;
-        font-size: 2vw;
+    button {
+        margin: 0 .5em; 
+        font-size: 1.5em;
     }
 `;
 

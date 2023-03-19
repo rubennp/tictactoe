@@ -23,10 +23,10 @@ export default function Joc ({
         <OpcionsJoc>
           <Bttn onClick={() => {
             resetJoc(JUGA);
-          }}>Torna a { guanya ? "jugar!" : "començar"}</Bttn>
+          }} alt="Jugar">Torna a { guanya ? "jugar!" : "començar"}</Bttn>
           <Bttn onClick={() => {
             resetJoc(CONFIGURA);
-          }}>Configura</Bttn>
+          }} alt="Configurar">Configura</Bttn>
         </OpcionsJoc>
       </section>
     </>

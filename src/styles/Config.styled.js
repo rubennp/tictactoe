@@ -10,9 +10,9 @@ const ConfigStyled = styled.div`
             font-size: 32px;
         }
 
-        div {
-            width: 4em;
-            height: 4em;
+        button {
+            width: 6em;
+            height: 6em;
             margin: .5em 1em 0;
             display: flex;
             align-items: center;

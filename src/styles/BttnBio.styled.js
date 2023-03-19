@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
-const BttnBio = styled.div`
-    height: 110px;
-    width: 110px;
-
-    background-image: url("./img/foto.jpg");
-    background-position: center;
-
+const BttnBio = styled.img`
+    height: 55px;
+    width: 55px;
+    object-fit: contain;
     border-radius: 100%;
 `;
 

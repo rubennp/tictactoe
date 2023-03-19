@@ -2,15 +2,19 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     * {
+        font-family: 'Cabin Sketch', cursive;
+        text-align: center;
         margin: 0;
         padding: 0;
     }
 
     html, body, div#root {
-        font-family: 'Cabin Sketch', cursive;
-        text-align: center;
         height: 100%;
         width: 100%;
+    }
+
+    button {
+        border: none;
     }
 
     main {

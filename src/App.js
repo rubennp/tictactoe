@@ -81,7 +81,7 @@ export default function App() {
     <main>
       <header>
           <h1>Tres en ratlla</h1>
-          <BttnBio />
+          <BttnBio src="./img/foto.jpg" />
       </header>
       {!hihaConfig ?
         <Home 

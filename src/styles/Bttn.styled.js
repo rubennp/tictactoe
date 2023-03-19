@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Bttn = styled.div`
+const Bttn = styled.button`
     color: maroon;
     background-color: oldlace;
     padding: 1rem;
