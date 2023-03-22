@@ -4,7 +4,7 @@ export default function LinkBio() {
     return (
         <Link className="bio" href="#">
             <img src="./img/ruben-emoji-1.png" alt="Rubèn"/>
-            <p>Sobre mi</p>
+            <p>rubennp'2023</p>
         </Link>
     );
 };
