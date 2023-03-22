@@ -5,13 +5,11 @@ const Link = styled.a`
 
     &.social {
         * {
-            vertical-align: top;
             color: black;
         }
 
         svg {
             border-radius: .5em;
-            display: inline-block;
             background-color: #f0f0f0;
             padding: .5em;
 
@@ -50,12 +48,13 @@ const Link = styled.a`
             width: 50px;
             object-fit: contain;
             border-radius: 100%;
-            box-shadow: 1px 1px 5px 1px rgba(0,0,0, .5);
+            box-shadow: 1px 1px 5px rgba(0,0,0, .5);
+            transition: box-shadow .1s linear;
         }
 
         &:hover img {
             content: url("./img/ruben-emoji-2.png");
-            box-shadow: 1px 1px 5px rgba(0,0,255, .2);
+            box-shadow: 1px 1px 50px 0px dodgerblue;
             transform: rotate(-2deg);
         }
     }

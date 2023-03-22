@@ -6,6 +6,7 @@ const Bttn = styled.button`
     padding: 1rem;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .25);
     border-radius: 10px;
+    transition: box-shadow, background-color .25s linear;
 
     &.juga {
         width: 25%;
